@@ -1,0 +1,21 @@
+please run the Server first:
+
+Syntax:  java ServerandClient.ChatServer [port]
+
+if you don't specify a port then the defaultport 8800 will be used.
+
+then run the ClientLoginframe
+
+Syntax: java gui.LoginFrame [port]
+
+if you don't specify a port then the same port will be used
+
+click Login  and input you nickname and then click Connect.
+you name will display in the list.
+
+input your message and click send
+
+
+the log can be found in C:/chatlogs
+
+not test in unix

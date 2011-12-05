@@ -1,0 +1,33 @@
+please run the Server first:
+
+Syntax:  java gui.ServerFrame
+
+you can specify a port nummber with a gui,then click start server
+
+then run the ClientLoginframe
+
+Syntax: java gui.LoginFrame
+
+1 The default Serverip is the localhost, if the server and client run on different
+pc ,please specify the server ip correctly.
+
+2 please use the default user name and password
+
+3 select a userinterface.  GUI allows you input and receive message with a GUI
+and Konsole allows you receive message in a console. and input message with a gui.
+
+
+the logdata can be found in C:/chatlogs
+
+not test in unix
+
+implementiert design pattern:
+
+in the ordner designPattern, 
+
+textEncryptionStrategy is a interface which used strategypattern implemented
+ROT13EncryptionStrategy is one of the Encryptionstrategy, and we can also use other
+EntryptionAlgrithums by simply replace.
+
+
+TemplateChat is a interface which is also implementation of Templatepattern. the both of userinterface(gui and konsole) are alternative of Template. we can also develop new userinterface by implement the method in interface TemplateChat.java 
