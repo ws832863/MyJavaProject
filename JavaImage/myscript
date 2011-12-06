@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# define the filepath your data has been put into
+datapath=./
+
+# define tmpfile you use to save filenames
+infile=tmpfile.txt
+
+# scan the datafiles and print their names into tmpfile
+find $datapath -maxdepth 1 -iname "*.JPG" -print | sed 's/^\.\///' >$infile
+echo "the path is " $datapath
+# calculate the lines or files in the directory
+count=1
+lines=`wc -l <$infile`
+echo "there are " $lines "lines in the txt"
+echo "image processing begin "
+echo "=================================="
+#mkdir gemacht
+# read filename from tmpfile line by line and do whatever with these files
+while [ "$count" -le "$lines" ]; do
+        cmd=`tail -n $count $infile|head -n 1`
+
+        #get the file name without .jpg
+		#get filaname without .jpg
+		filename=${cmd%.*}
+		
+		echo "$filename processing.."
+		#for everyimage create a dir use the imagename
+		mkdir "$filename"
+		#convert the image with samename-grayscale.jpg
+		convert $cmd -colorspace gray $filename-grayscale.JPG
+		echo "$cmd 's qualityscale is " |tee >> quality.log
+		#echo the quality of the image to a log file
+		nfiq $filename-grayscale.JPG |tee >> quality.log
+		#detect the minutae of image
+		mindtct $filename-grayscale.JPG $filename/$filename
+		#get the minutae visual bild
+		java MinutiaeVisual $cmd $filename/$filename.min $filename/"$filename"_minVisual.jpg 0 0.200
+		mv $filename-grayscale.JPG $filename/$filename-grayscale.JPG 
+        
+        
+        count=`expr $count + 1`
+        
+        #echo $cmd
+    done
+
+count=`expr $count - 1`
+echo "=================================="
+echo "$count image have been processed "
+
+#delete the tmpfile
+#rm $infile
+
