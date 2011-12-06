@@ -1,7 +1,6 @@
 import javax.imageio.*;
 import javax.imageio.spi.*;
 import java.io.*;
-import java.io.BufferedWriter;
 import java.awt.image.*;
 import java.awt.Image;
 import java.awt.*;
@@ -10,41 +9,31 @@ import java.util.*;
 public class MinutiaeVisual{
 	protected static int scale=1;
 	protected static double reliabilityThrehold=0;
-	private static double everageReliability=0.0;
-	
-	public static String decodePath(String path){
-		String absolutepath=path;
-	try{
-		System.out.println("before decode:"+absolutepath);
-		absolutepath=java.net.URLDecoder.decode(absolutepath,"utf-8");
-		System.out.println("after decode:"+absolutepath);
-	}catch(Exception ex){
-		ex.printStackTrace();
-	}
-		return absolutepath;
-	}
 	public static void main(String[] args){
 			String path=TextReader.class.getResource("").getFile();
 			String imgpath=path;
 			String minpath=path+"IMG_2710_1.min";
 			String minOutputPath="";
 			String bildName="IMG_2708_0";
-			
-				imgpath=decodePath(path+args[0].toString());
-				minpath=decodePath(path+args[1].toString());
-				minOutputPath=decodePath(path+args[2].toString());
-			
 		if(args.length==3){
-			
-
+				imgpath=path+args[0].toString();
+				minpath=path+args[1].toString();
+				minOutputPath=path+args[2].toString();
+				System.out.println("image source:" +imgpath);
+				System.out.println("minutae data source:" +minpath);
+				System.out.println("visual minutae destination:"+minOutputPath);
 				minutaeVisual(imgpath,minpath,minOutputPath);
 				
 		}else if (args.length==4){
-
+				imgpath=path+args[0].toString();
+				minpath=path+args[1].toString();
+				minOutputPath=path+args[2].toString();
 				scale=Integer.parseInt(args[3].toString());
 				minutaeVisual(imgpath,minpath,minOutputPath);
 		}else if (args.length==5){
-
+				imgpath=path+args[0].toString();
+				minpath=path+args[1].toString();
+				minOutputPath=path+args[2].toString();
 				scale=Integer.parseInt(args[3].toString());
 				reliabilityThrehold=Double.parseDouble(args[4].toString());
 				minutaeVisual(imgpath,minpath,minOutputPath);
@@ -62,7 +51,6 @@ public class MinutiaeVisual{
 			
 		
 		}
-
 	
 	}//end of static main
 	
@@ -93,7 +81,7 @@ public class MinutiaeVisual{
 				a[1]=Integer.parseInt(str[1]);
 				String angle=str[2];
 				double reliability=Double.parseDouble(str[3]);
-				everageReliability=everageReliability+reliability;
+
 				if(reliability>reliabilityThrehold){
 					//System.out.println("before("+a[0]+","+a[1]+"):RGB"+bi.getRGB(a[0],a[1]));
 					for (int px=-1;px<=scale;px++){
@@ -104,15 +92,6 @@ public class MinutiaeVisual{
 				}
 				
 			}//end of frist for
-			if(true){
-				
-				everageReliability=everageReliability/size;
-				FileWriter fw=new FileWriter("reliability.txt",true);
-				BufferedWriter bw=new BufferedWriter(fw);
-				bw.write(minOutputPath+":"+everageReliability);
-				bw.newLine();
-				bw.close();
-			}
 			ImageIO.write(bi,"JPEG",new File(minOutputPath));
 		}
 		catch(Exception ex){

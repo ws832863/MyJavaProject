@@ -33,7 +33,6 @@ public class TextReader{
 			ex.printStackTrace();
 		}
 	}
-
 	
 	private int[] getMinLocation(String str){
 		int coordinate[]=new int[2];
