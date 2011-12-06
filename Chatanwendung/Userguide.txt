@@ -1,3 +1,4 @@
+i change something in linux and i want to synchronize it to windows 7
 please run the Server first:
 
 Syntax:  java gui.ServerFrame
@@ -12,7 +13,6 @@ Syntax: java gui.LoginFrame
 pc ,please specify the server ip correctly.
 
 2 please use the default user name and password
-
 3 select a userinterface.  GUI allows you input and receive message with a GUI
 and Konsole allows you receive message in a console. and input message with a gui.
 
