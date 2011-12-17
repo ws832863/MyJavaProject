@@ -30,11 +30,11 @@ public class TemplateOfClientListener extends Thread{
 			
 			
 			if(!msg.Encrypted){
-				MyUtils.CommonUtils.PrintMe("信息未加密，内容:"+ msg.getContent());
+				MyUtils.CommonUtils.PrintMe("not encrypted msg:"+ msg.getContent());
 				msg.EncryptedMe(SingletonEncryptionMethod.getInstance());
-				MyUtils.CommonUtils.PrintMe("信息被加密，内容:"+ msg.getContent());
+				MyUtils.CommonUtils.PrintMe("the msg has been encrypt，内容:"+ msg.getContent());
 			}else{
-				MyUtils.CommonUtils.PrintMe("信息已加密，内容为:"+ msg.getContent());
+				MyUtils.CommonUtils.PrintMe("the msg has ben already encrypted:"+ msg.getContent());
 			}
 			outs.writeObject(msg);
 			outs.flush();
@@ -126,13 +126,20 @@ public class TemplateOfClientListener extends Thread{
 	public void clearUp(){
 	
 		try {
-			clientSocket.close();
-			clientSocket=null;
+			if(clientSocket!=null){
+				clientSocket=null;
+				if(!clientSocket.isClosed())
+				clientSocket.close();
+			}
+			
 		
 			ins.close();
 			outs.close();
 			
 		} catch (IOException e) {
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			System.out.println("@@@@@@@@@cloes because of exception@@@@@");
+			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			
 			e.printStackTrace();
 		}
